@@ -1,6 +1,7 @@
 package com.jinasoft.study03_ksj.DataBase;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -57,6 +58,36 @@ public class DataBaseMain extends AppCompatActivity {
                 intent.putExtra("contents", contents);
                 //메모 액티비티 시작
                 startActivityForResult(intent, REQUEST_CODE_INSERT);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
+                final long deleteId = id;
+                //삭제할 것인지 다이얼로그 표시
+                AlertDialog.Builder builder = new AlertDialog.Builder(DataBaseMain.this);
+
+                builder.setTitle("메모 삭제");
+                builder.setMessage("메모를 삭제하시겠습니까?");
+                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SQLiteDatabase db =
+                                MemoDbHelper.getInstance(DataBaseMain.this).getWritableDatabase();
+                        int deletdCount = db.delete(MemoContract.MemoEntry.TABLE_NAME,
+                                MemoContract.MemoEntry._ID + " = " + deleteId, null);
+                        if (deletdCount == 0) {
+                            Toast.makeText(DataBaseMain.this, "삭제에 문제가 발생하였습니다", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mAdapter.swapCursor(getMemoCursor());
+                            Toast.makeText(DataBaseMain.this, "메모가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("취소", null);
+                builder.show();
+                return true;
             }
         });
     }
