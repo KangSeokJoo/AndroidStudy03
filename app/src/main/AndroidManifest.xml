@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jinasoft.study03_ksj">
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat">
+        <activity android:name=".DataBase.MemoActivity"></activity>
+        <activity android:name=".DataBase.DataBaseMain" />
+        <activity android:name=".CountDown.CountMain" />
+        <activity android:name=".Tread.ThreadMain" />
+        <activity android:name=".CursorAdapter.CursorMain" />
+        <activity android:name=".Broadcast.LocalBroad" /> <!-- 로컬 (앱실행중에만) 방송 수신 시 매니페스트에서 리시버 제거 -->
+        <receiver
+            android:name=".Broadcast.BroadMain"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".Language.LanguageMain" />
+        <activity android:name=".DynamicUI.DynamicMain" />
+        <activity android:name=".SelectStudyList">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
