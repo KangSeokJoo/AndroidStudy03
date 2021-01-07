@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jinasoft.study03_ksj.R;
@@ -94,7 +97,7 @@ public class DataBaseMain extends AppCompatActivity {
     private Cursor getMemoCursor(){
         MemoDbHelper dbHelper = MemoDbHelper.getInstance(this);
         return dbHelper.getReadableDatabase().query(MemoContract.MemoEntry.TABLE_NAME,
-                null,null,null,null,null,null, MemoContract.MemoEntry._ID + " DESC");
+                null,null,null,null,null,null);
     } // 끝 리미트에 추가문구 넣으므로 내림차순으로 보여주
 
     @Override
